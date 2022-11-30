@@ -26,13 +26,14 @@ while correct_guess < 28:
         break
     user_input = user_input.title()
 
-    if user_input in all_states:
+    if user_input in all_states and user_input not in correct_answer:
         x_pos = int(file[file.state == user_input]["x"])
         y_pos = int(file[file.state == user_input]["y"])
         turtle.goto(x_pos, y_pos)
         turtle.write(arg=f"{user_input}", align="center", font=("Arial", 8, "normal"))
         correct_guess += 1
         correct_answer.append(user_input)
+screen.bye()
 
 not_able_to_guess = [answer for answer in all_states if answer not in correct_answer]
 
@@ -45,6 +46,8 @@ title_message = f"In total you were able to guess {correct_guess}/28 states"
 not_able_to_guess_string = "States that you were not able to guess\n"
 for state in not_able_to_guess:
     not_able_to_guess_string+= f"{state}\n"
+if len(not_able_to_guess) ==0:
+    not_able_to_guess_string="Yay! You Guessed all the states"
 
 def popupmsg():
     popup = tk.Tk()
